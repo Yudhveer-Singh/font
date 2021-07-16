@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first game!!!</title>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" >
+    
+    <style>
+    	body{
+    		background: linear-gradient(wheat,hotpink);
+    		margin:10px 0 0 0;;
+    	} 
+    	#avatar{
+    		width:40px;
+    		height:40px;
+			background:radial-gradient(white,red);
+    		position: absolute;
+    		transform: translate(0px,0px);
+			border-radius:50px;
+			
+    	}
+    	#container{
+    		width:280px;
+    		height:400px;
+    		border:4px solid brown;
+    		position:relative;
+    		
+    	}
+    	#controller{
+    		width:100%;
+    		text-align:center;
+    	}
+    	#control{
+    		width:80px;
+    		height:45px;
+    		background-color:gray;
+    		color:white;
+    		border:none;
+    		margin:2px;
+    		border-radius:8px;
+    		outline:none;
+    	}
+    	#control:hover{
+    		border: 2px solid brown;
+    		background-color:coral;
+    	}
+    	.green{
+    		width:40px;
+    		height:80px;
+    		background: linear-gradient(lightgreen,green 90%);
+    		position: absolute;
+    	}
+   .win{
+   		width:40px;
+   		height:40px;
+   		background-color:tomato;
+   		position: absolute;
+   		transform: translate(0px,320px);
+		font-size:30px;
+   }
+   
+.one{
+	transform: translate(40px,0px);
+	width:40px;
+	height:80px;}
+.two{
+	transform: translate(0px,120px);
+	width:80px;
+	height:40px;}
+.three{
+	transform: translate(120px,40px);
+	width:80px;
+	height:40px;}
+.four{
+	transform: translate(120px,80px);
+	width:40px;
+	height:160px;}
+.five{
+	transform: translate(40px,200px);
+	width:80px;
+	height:40px;}
+.six{
+	transform: translate(40px,240px);
+	width:40px;
+	height:80px;}
+.seven{
+	transform: translate(0px,280px);
+	width:40px;
+	height:40px;}
+.eight{
+	transform: translate(240px,0px);
+	width:40px;
+	height:160px;}
+.nine{
+	transform: translate(200px,120px);
+	width:40px;
+	height:40px;}
+.ten{
+	transform: translate(200px,200px);
+	width:40px;
+	height:120px;}
+.eleven{
+	transform: translate(120px,280px);
+	width:80px;
+	height:80px;}
+.twelve{
+	transform: translate(0px,360px);
+	width:160px;
+	height:40px;}
+.thirteen{
+	transform: translate(240px,360px);
+	width:40px;
+	height:40px;}
+	
+	#game{
+		display:flex;
+	}
+	#null{
+		flex:1;
+	}
+	#winbox{
+		text-align:center;
+		color:coral;
+		font-family: vardana;
+		display:none;
+	}
+	h1{
+	font-size:80px;}
+	h4{
+	font-size:40px;}
+	#play{
+		width:200px;
+		height:40px;
+		background-color: coral;
+		border:none;
+		outline:none;
+		color:black;
+		border-radius:80px;
+		font-size:20px;
+	}
+	#play:hover{
+		border:2px solid brown;
+	}
+	
+    </style>
+    </head>
+    <body>
+
+
+<audio src="click.ogg"></audio>
+<audio src="draw.mp3"></audio>
+
+
+<div id="gamebox">
+<div id="game">
+<div id="null"></div>
+<div id="container">
+    <div id="avatar"></div>
+    <div class="green one"></div>
+    <div class="green two"></div>
+    <div class="green three"></div>
+	<div class="green four"></div>
+	<div class="green five"></div>
+	<div class="green six"></div>
+	<div class="green seven"></div>
+	<div class="green eight"></div>
+	<div class="green nine"></div>
+	<div class="green ten"></div>
+	<div class="green eleven"></div>
+	<div class="green twelve"></div>
+	<div class="green thirteen"></div>
+	<div class="win">🏁</div>
+</div>
+<div id="null"></div>
+</div>
+    
+   
+    <div id="controller">
+    <button id="control" onclick="up()">up</button>
+    <br><button id="control" onclick="left()">left</button>
+    <button id="control" onclick="right()">right</button>
+    <br><button id="control" onclick="down()">down</button>
+    </div>
+</div>
+    
+    
+    
+<div id="winbox">
+
+	<h1> you</h1>
+	<h4>win!!</h4>
+	<button id="play" onclick="playagain()">play again</button>
+
+<br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<audio autoplay="true" id="music">
+
+</audio>
+
+<audio src="win.mp3"></audio>
+
+    
+    
+    <script>
+    	
+    var mu=document.getElementById('music');
+    
+    var life=0;
+    var posx=0;
+    var posy=0;
+    var avatar= document.getElementById('avatar');
+    function right(){
+    	posx=posx+20;
+    	avatar.style.left=posx+'px';
+    	check();
+    }
+    function left(){
+    posx=posx-20;
+    avatar.style.left=posx+'px';
+    check();
+    }
+    function down(){
+    posy=posy+20;
+    avatar.style.transform='translateY('+posy+'px)';
+    check();
+    }
+    function up(){
+    posy=posy-20;
+    avatar.style.transform='translateY('+posy+'px)';
+    check();
+    }
+    function check(){
+
+    	block(40,0,40,80);
+    	block(0,120,80,40);
+    	block(120,40,80,40);
+    	block(120,80,40,160);
+    	block(40,200,80,40);
+    	
+    	block(40,240,40,80);
+    	block(0,280,40,40);
+    	block(240,0,40,160);
+    	block(200,120,40,40);
+    	block(200,200,40,120);
+    	
+    	block(120,280,80,80);
+    	block(0,360,160,40);
+    	block(240,360,40,40);
+    	
+    	
+    if(posx>=260 || posx<0 || posy>=380 || posy<0){
+    		life=1;
+    }
+    
+    if(life==0){
+    mu.src="click.ogg";}
+    	
+    if(life==1){
+    	//on lose
+    	life=0;
+    	posx=0;
+    	posy=0;
+    	avatar.style.left=posx+'px';
+    	avatar.style.transform='translateY('+posy+'px)';
+    mu.src="draw.mp3";
+    }
+	
+
+if(posx==0 && posy==320){
+    //on win
+    	document.getElementById('winbox').style.display='block';
+    	document.getElementById('gamebox').style.display='none';
+    	posx=0;
+    	posy=0;
+    	avatar.style.left=posx+'px';
+    	avatar.style.transform='translateY('+posy+'px)';
+    	mu.src="win.mp3";
+    }
+
+}
+function block(x,y,w,h){
+	let xa= x-20;
+	let xb= xa+w;
+	let ya= y-20;
+	let yb= ya+h;
+	
+	if(posx>=xa && posx<=xb){
+	    if(posy>=ya && posy<=yb){
+	    	life=1;
+	    }
+	}
+}
+function playagain(){
+	document.getElementById('winbox').style.display='none';
+	document.getElementById('gamebox').style.display='block';
+}
+
+alert("press down to start");
+    </script>
+    </body>
+</html>
